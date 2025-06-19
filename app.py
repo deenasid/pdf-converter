@@ -8,8 +8,6 @@ from werkzeug.utils import secure_filename
 from pdf2docx import Converter
 import mimetypes
 from docx2pdf import convert
-import pythoncom
-import win32com.client
 import shutil
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
@@ -54,8 +52,6 @@ def convert_word_to_pdf(input_file, output_file):
             os.makedirs(output_dir, exist_ok=True)
         
         # Initialize COM for this thread
-        pythoncom.CoInitialize()
-        
         try:
             # Convert using docx2pdf with explicit file handling
             convert(input_file, output_file)
@@ -74,12 +70,6 @@ def convert_word_to_pdf(input_file, output_file):
     except Exception as e:
         print(f"Error in convert_word_to_pdf: {str(e)}")
         return False
-    finally:
-        # Clean up COM
-        try:
-            pythoncom.CoUninitialize()
-        except:
-            pass
 
 def convert_pdf_to_word(input_file, output_file):
     try:
