@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download - PDF Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --card-bg: white;
+            --header-bg: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --menu-width: 280px;
+        }
+
+        /* Dark theme variables */
+        [data-bs-theme="dark"] {
+            --primary-color: #64b5f6;
+            --secondary-color: #1a237e;
+            --text-color: #e0e0e0;
+            --light-bg: #121212;
+            --card-bg: #1e1e1e;
+            --header-bg: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        /* Explicit light theme styles to ensure proper colors */
+        body:not(.dark-theme) {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        body:not(.dark-theme) .header {
+            background: linear-gradient(135deg, #4a90e2, #2c3e50) !important;
+        }
+
+        body:not(.dark-theme) .copyright-section {
+            background: linear-gradient(135deg, #4a90e2, #2c3e50) !important;
+        }
+
+        body:not(.dark-theme) .sidebar {
+            background: linear-gradient(135deg, #2c3e50, #34495e) !important;
+        }
+
+        body:not(.dark-theme) .sidebar-header {
+            background: linear-gradient(135deg, #34495e, #2c3e50) !important;
+        }
+
+        body:not(.dark-theme) .sidebar-footer {
+            background: #34495e !important;
+        }
+
+        /* Dark theme specific styles */
+        [data-bs-theme="dark"] .header {
+            background: linear-gradient(135deg, #1a237e, #0d47a1) !important;
+        }
+
+        [data-bs-theme="dark"] .copyright-section {
+            background: linear-gradient(135deg, #1a237e, #0d47a1) !important;
+        }
+
+        [data-bs-theme="dark"] .sidebar {
+            background: linear-gradient(135deg, #1a237e, #0d47a1) !important;
+        }
+
+        [data-bs-theme="dark"] .sidebar-header {
+            background: linear-gradient(135deg, #0d47a1, #1a237e) !important;
+        }
+
+        [data-bs-theme="dark"] .sidebar-footer {
+            background: #0d47a1 !important;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+            background: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        /* Ensure body background changes in dark mode */
+        [data-bs-theme="dark"] body {
+            background: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        /* Override any conflicting styles */
+        [data-bs-theme="dark"] {
+            background: #121212 !important;
+        }
+
+        [data-bs-theme="dark"] body {
+            background: #121212 !important;
+        }
+
+        /* Additional dark mode fixes */
+        [data-bs-theme="dark"] html {
+            background: #121212 !important;
+        }
+
+        [data-bs-theme="dark"] .container {
+            background: transparent;
+        }
+
+        /* Ensure all elements respect dark theme */
+        [data-bs-theme="dark"] * {
+            background-color: transparent;
+        }
+
+        [data-bs-theme="dark"] .download-section {
+            background: #1e1e1e !important;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        [data-bs-theme="dark"] .error-message {
+            background: #2d1b1b !important;
+            border: 1px solid #5c2c2c !important;
+            color: #f8d7da !important;
+        }
+
+        [data-bs-theme="dark"] .error-message h2 {
+            color: #f8d7da !important;
+        }
+
+        [data-bs-theme="dark"] .error-message p {
+            color: #f8d7da !important;
+        }
+
+        .header {
+            background: var(--header-bg);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .logo:active {
+            transform: translateY(0);
+        }
+
+        .logo svg {
+            width: 32px;
+            height: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover svg {
+            transform: scale(1.05);
+        }
+
+        .logo span {
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover span {
+            color: #f8f9fa;
+        }
+
+        /* Theme toggle styles */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.8rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: white;
+            position: relative;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(30deg);
+        }
+
+        [data-bs-theme="dark"] .theme-toggle {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        [data-bs-theme="dark"] .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 6rem auto 2rem;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .download-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        [data-bs-theme="dark"] .download-container {
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .completion-animation {
+            margin-bottom: 2rem;
+        }
+
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .checkmark circle {
+            fill: #27ae60;
+            animation: drawCircle 0.5s ease-out;
+        }
+
+        .checkmark path {
+            fill: none;
+            stroke: white;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: drawCheck 0.5s ease-out 0.5s forwards;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+        }
+
+        .success-message {
+            font-size: 1.5rem;
+            color: #27ae60;
+            margin: 1rem 0;
+            animation: fadeIn 0.5s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        .download-section {
+            background: #2c3e50;
+            border-radius: 12px;
+            padding: 2rem;
+            color: white;
+            margin-top: 2rem;
+            animation: slideUp 0.5s ease-out 0.5s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .dark-theme .download-section {
+            background: #34495e;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .dark-theme .download-container {
+            background: #1e1e1e;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .dark-theme .error-message {
+            background: #2d1b1b;
+            border: 1px solid #5c2c2c;
+            color: #f8d7da;
+        }
+
+        .dark-theme .error-message h2 {
+            color: #f8d7da;
+        }
+
+        .dark-theme .error-message p {
+            color: #f8d7da;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .file-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            width: 60px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .file-icon.pdf-icon {
+            width: 48px;
+            height: 48px;
+            background-image: url('/static/images/pdf-icon.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-size: 0; /* Hide the Font Awesome icon */
+        }
+
+        .file-icon.word-icon {
+            width: 48px;
+            height: 48px;
+            background-image: url('/static/images/word-icon.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-size: 0; /* Hide the Font Awesome icon */
+        }
+
+        .file-icon.generic-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+        }
+
+        .file-details {
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+        }
+
+        .file-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .file-size {
+            font-size: 0.9rem;
+            color: #bdc3c7;
+            margin-bottom: 0.25rem;
+        }
+
+        .file-type {
+            font-size: 0.8rem;
+            color: #95a5a6;
+            font-style: italic;
+        }
+
+        .download-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .download-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .download-btn .btn-text {
+            transition: all 0.3s ease;
+        }
+
+        .download-btn.downloading .btn-text {
+            opacity: 0;
+        }
+
+        .download-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .progress-bar {
+            width: 80%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: white;
+            animation: progress 1.5s ease-in-out infinite;
+        }
+
+        @keyframes progress {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .download-success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71) !important;
+            animation: successPulse 0.5s ease;
+        }
+
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .download-error {
+            background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+            animation: errorShake 0.5s ease;
+        }
+
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .back-btn {
+            background: #95a5a6;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(149, 165, 166, 0.2);
+            min-width: 140px;
+        }
+
+        .back-btn:hover {
+            background: #7f8c8d;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(149, 165, 166, 0.3);
+        }
+
+        .error-message {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            color: #721c24;
+        }
+
+        .error-message i {
+            font-size: 2rem;
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+
+        .error-message h2 {
+            color: #721c24;
+            margin-bottom: 1rem;
+        }
+
+        .error-message p {
+            color: #721c24;
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        @keyframes drawCircle {
+            from { stroke-dasharray: 0 283; }
+            to { stroke-dasharray: 283 283; }
+        }
+
+        @keyframes drawCheck {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                margin-top: 5rem;
+            }
+
+            .download-container {
+                padding: 1.5rem;
+            }
+
+            .download-section {
+                padding: 1.5rem;
+            }
+
+            .file-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .file-details {
+                text-align: center;
+                min-width: auto;
+            }
+
+            .download-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .download-btn, .back-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                height: 56px;
+                padding: 0.5rem 0.8rem;
+            }
+
+            .container {
+                margin-top: 4.5rem;
+                padding: 0.8rem;
+            }
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .download-btn-fallback {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        .download-btn-fallback:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            color: white;
+        }
+
+        /* Dark mode button styles for download page */
+        [data-bs-theme="dark"] .download-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71) !important;
+            color: white !important;
+        }
+
+        [data-bs-theme="dark"] .download-btn:hover {
+            background: linear-gradient(135deg, #2ecc71, #27ae60) !important;
+            color: white !important;
+        }
+
+        [data-bs-theme="dark"] .download-btn-fallback {
+            background: linear-gradient(135deg, #3498db, #2980b9) !important;
+            color: white !important;
+        }
+
+        [data-bs-theme="dark"] .download-btn-fallback:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db) !important;
+            color: white !important;
+        }
+
+        [data-bs-theme="dark"] .back-btn {
+            background: #7f8c8d !important;
+            color: white !important;
+        }
+
+        [data-bs-theme="dark"] .back-btn:hover {
+            background: #95a5a6 !important;
+            color: white !important;
+        }
+
+        /* Dark mode file info styles */
+        [data-bs-theme="dark"] .file-name {
+            color: white !important;
+        }
+
+        [data-bs-theme="dark"] .file-size {
+            color: #bdc3c7 !important;
+        }
+
+        [data-bs-theme="dark"] .file-type {
+            color: #95a5a6 !important;
+        }
+
+        /* Dark mode success message */
+        [data-bs-theme="dark"] .success-message {
+            color: #27ae60 !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 18H17V16H7V18Z" fill="white"/>
+                    <path d="M17 14H7V12H17V14Z" fill="white"/>
+                    <path d="M7 10H11V8H7V10Z" fill="white"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6 2C4.34315 2 3 3.34315 3 5V19C3 20.6569 4.34315 22 6 22H18C19.6569 22 21 20.6569 21 19V9C21 5.13401 17.866 2 14 2H6ZM6 4H13V9H19V19C19 19.5523 18.5523 20 18 20H6C5.44772 20 5 19.5523 5 19V5C5 4.44772 5.44772 4 6 4ZM15 4.10002C16.6113 4.4271 17.9413 5.52906 18.584 7H15V4.10002Z" fill="white"/>
+                </svg>
+                <span>PDF Converter</span>
+            </a>
+            
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="theme-icon" id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- Sun icon for light theme -->
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        {% if success %}
+        <div class="download-container">
+            <div class="completion-animation">
+                <svg class="checkmark" viewBox="0 0 52 52">
+                    <circle cx="26" cy="26" r="25" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <div class="success-message">{{ message }}</div>
+            </div>
+
+            {% for file in files %}
+            <div class="download-section">
+                <div class="file-info">
+                    <div class="file-icon {% if file.name.lower().endswith('.pdf') %}pdf-icon{% elif file.name.lower().endswith('.docx') or file.name.lower().endswith('.doc') %}word-icon{% else %}generic-icon{% endif %}">
+                        {% if not file.name.lower().endswith('.pdf') and not file.name.lower().endswith('.docx') and not file.name.lower().endswith('.doc') %}
+                            <i class="fas fa-file"></i>
+                        {% endif %}
+                    </div>
+                    <div class="file-details">
+                    <div class="file-name">{{ file.name }}</div>
+                        <div class="file-size">
+                            {% if file.size %}
+                                {{ file.size }}
+                            {% else %}
+                                Ready for download
+                            {% endif %}
+                        </div>
+                        <div class="file-type">
+                            {% if file.name.lower().endswith('.pdf') %}
+                                PDF Document
+                            {% elif file.name.lower().endswith('.docx') %}
+                                Word Document (.docx)
+                            {% elif file.name.lower().endswith('.doc') %}
+                                Word Document (.doc)
+                            {% else %}
+                                Converted File
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="download-actions">
+                    <button class="download-btn" onclick="downloadFile('{{ file.name }}')" data-filename="{{ file.name }}">
+                        <i class="fas fa-download"></i>
+                        <span class="btn-text">Download File</span>
+                        <div class="download-progress" style="display: none;">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </button>
+                    <!-- Fallback download link -->
+                    <a href="{{ url_for('download_file', filename=file.name) }}" class="download-btn-fallback" style="display: none;" download>
+                        <i class="fas fa-download"></i>
+                        Download File (Fallback)
+                    </a>
+                    <a href="/" class="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Home
+                    </a>
+                </div>
+                <!-- Debug info (remove in production) -->
+                <div style="font-size: 0.8rem; color: #95a5a6; margin-top: 1rem; text-align: center;">
+                    File: {{ file.name }} | Size: {{ file.size }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="download-container">
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <h2>Conversion Failed</h2>
+                <p>{{ message }}</p>
+                <a href="/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const html = document.documentElement;
+            
+            // Check for saved theme preference or default to light
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            html.setAttribute('data-bs-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+            
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = html.getAttribute('data-bs-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                html.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+                
+                // Add animation effect
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+            
+            function updateThemeIcon(theme) {
+                if (theme === 'dark') {
+                    // Show moon icon for dark theme
+                    themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+                } else {
+                    // Show sun icon for light theme
+                    themeIcon.innerHTML = `
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    `;
+                }
+            }
+        });
+
+        // Simple and reliable download functionality
+        function downloadFile(filename) {
+            const downloadBtn = document.querySelector(`[data-filename="${filename}"]`);
+            const btnText = downloadBtn.querySelector('.btn-text');
+            
+            // Show downloading state
+            downloadBtn.classList.add('downloading');
+            downloadBtn.disabled = true;
+            
+            // Create download URL
+            const downloadUrl = `/download_file/${encodeURIComponent(filename)}`;
+            
+            // Method 1: Try direct link download (most reliable)
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = filename;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            
+            // Add click event to track success
+            link.addEventListener('click', function() {
+                // Show success state
+                setTimeout(() => {
+                    downloadBtn.classList.remove('downloading');
+                    downloadBtn.classList.add('download-success');
+                    btnText.textContent = 'Downloaded!';
+                    
+                    // Reset button after a delay
+                    setTimeout(() => {
+                        downloadBtn.classList.remove('download-success');
+                        downloadBtn.disabled = false;
+                        btnText.textContent = 'Download File';
+                    }, 2000);
+                }, 1000);
+            });
+            
+            // Trigger download
+            link.click();
+            document.body.removeChild(link);
+            
+            // Fallback: If direct download doesn't work, try fetch method
+            setTimeout(() => {
+                if (downloadBtn.classList.contains('downloading')) {
+                    console.log('Direct download may have failed, trying fetch method...');
+                    
+                    fetch(downloadUrl)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.blob();
+                        })
+                        .then(blob => {
+                            // Create blob URL and download
+                            const blobUrl = window.URL.createObjectURL(blob);
+                            const fallbackLink = document.createElement('a');
+                            fallbackLink.href = blobUrl;
+                            fallbackLink.download = filename;
+                            fallbackLink.style.display = 'none';
+                            document.body.appendChild(fallbackLink);
+                            fallbackLink.click();
+                            document.body.removeChild(fallbackLink);
+                            window.URL.revokeObjectURL(blobUrl);
+                            
+                            // Show success state
+                            downloadBtn.classList.remove('downloading');
+                            downloadBtn.classList.add('download-success');
+                            btnText.textContent = 'Downloaded!';
+                            
+                            // Reset button after a delay
+                            setTimeout(() => {
+                                downloadBtn.classList.remove('download-success');
+                                downloadBtn.disabled = false;
+                                btnText.textContent = 'Download File';
+                            }, 2000);
+                        })
+                        .catch(error => {
+                            console.error('Download error:', error);
+                            
+                            // Show error state
+                            downloadBtn.classList.remove('downloading');
+                            downloadBtn.classList.add('download-error');
+                            btnText.textContent = 'Download Failed';
+                            
+                            // Show error message
+                            alert(`Download failed: ${error.message}`);
+                            
+                            // Reset button after a delay
+                            setTimeout(() => {
+                                downloadBtn.classList.remove('download-error');
+                                downloadBtn.disabled = false;
+                                btnText.textContent = 'Download File';
+                            }, 3000);
+                        });
+                }
+            }, 2000);
+        }
+    </script>
+</body>
+</html> 

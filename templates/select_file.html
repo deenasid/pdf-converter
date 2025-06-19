@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select File - PDF Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Light theme styles (default) */
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f8f9fa;
+            --card-hover-color: #f1f8ff;
+            --card-bg: white;
+            --text-color: #2c3e50;
+            --text-muted: #666;
+        }
+
+        /* Dark theme variables */
+        [data-bs-theme="dark"] {
+            --primary-color: #64b5f6;
+            --secondary-color: #1a237e;
+            --background-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --card-hover-color: #2d2d2d;
+        }
+
+        /* Explicit light theme styles to ensure proper colors */
+        body:not(.dark-theme) {
+            background: #f8f9fa;
+            color: #2c3e50;
+        }
+
+        body:not(.dark-theme) .header {
+            background: linear-gradient(135deg, #4a90e2, #2c3e50) !important;
+        }
+
+        body:not(.dark-theme) .copyright-section {
+            background: linear-gradient(135deg, #4a90e2, #2c3e50) !important;
+        }
+
+        body:not(.dark-theme) .sidebar {
+            background: linear-gradient(135deg, #2c3e50, #34495e) !important;
+        }
+
+        body:not(.dark-theme) .sidebar-header {
+            background: linear-gradient(135deg, #34495e, #2c3e50) !important;
+        }
+
+        body:not(.dark-theme) .sidebar-footer {
+            background: #34495e !important;
+        }
+
+        /* Dark theme specific styles */
+        [data-bs-theme="dark"] .header {
+            background: linear-gradient(135deg, #1a237e, #0d47a1) !important;
+        }
+
+        [data-bs-theme="dark"] .copyright-section {
+            background: linear-gradient(135deg, #1a237e, #0d47a1) !important;
+        }
+
+        [data-bs-theme="dark"] .sidebar {
+            background: linear-gradient(135deg, #1a237e, #0d47a1) !important;
+        }
+
+        [data-bs-theme="dark"] .sidebar-header {
+            background: linear-gradient(135deg, #0d47a1, #1a237e) !important;
+        }
+
+        [data-bs-theme="dark"] .sidebar-footer {
+            background: #0d47a1 !important;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            margin: 0;
+            background: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Ensure header and copyright sections always have proper blue colors in light theme */
+        .header {
+            padding: 0.8rem 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .logo:active {
+            transform: translateY(0);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover .logo-text {
+            color: #f8f9fa;
+        }
+
+        /* Theme toggle styles */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.8rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: white;
+            position: relative;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(30deg);
+        }
+
+        [data-bs-theme="dark"] .theme-toggle {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        [data-bs-theme="dark"] .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        [data-bs-theme="dark"] {
+            --primary-color: #5a9fe2;
+            --secondary-color: #1a2a3a;
+            --background-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #ffffff;
+            --text-muted: #a0a0a0;
+        }
+
+        [data-bs-theme="dark"] body {
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+
+        [data-bs-theme="dark"] .file-select-box {
+            background: #1e1e1e;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-bs-theme="dark"] .file-select-box:hover {
+            border-color: #64b5f6;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        [data-bs-theme="dark"] .sidebar {
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+        }
+
+        [data-bs-theme="dark"] .sidebar-header {
+            background: linear-gradient(135deg, #0d47a1, #1a237e);
+        }
+
+        [data-bs-theme="dark"] .sidebar-footer {
+            background: #0d47a1;
+        }
+
+        [data-bs-theme="dark"] .nav-link:hover {
+            background: rgba(100, 181, 246, 0.2);
+            border-left-color: #64b5f6;
+        }
+
+        [data-bs-theme="dark"] .nav-link.active {
+            background: rgba(100, 181, 246, 0.3);
+            border-left-color: #64b5f6;
+            box-shadow: inset 0 0 10px rgba(100, 181, 246, 0.2);
+        }
+
+        .file-select-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 80px);
+            margin-top: 80px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-btn {
+            background: #2c3e50;
+            color: white;
+            border: 2px solid #2c3e50;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn:hover {
+            background: #34495e;
+            border-color: #34495e;
+            color: white;
+            text-decoration: none;
+        }
+
+        .file-select-box {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 600px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .file-select-box:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .upload-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .file-select-box:hover .upload-icon {
+            color: var(--secondary-color);
+        }
+
+        .file-select-box h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .file-select-box p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .select-file-btn {
+            background: var(--primary-color);
+            color: white;
+            border: 2px solid var(--primary-color);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .select-file-btn:hover {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .file-type-info {
+            background: rgba(74, 144, 226, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .file-type-info p {
+            margin: 0;
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+
+        .file-type-info i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            color: #721c24;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        .error-message i {
+            color: #dc3545;
+        }
+
+        .file-preview {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .file-preview.show {
+            display: flex;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(74, 144, 226, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 400px;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .file-info:hover {
+            background: rgba(74, 144, 226, 0.1);
+        }
+
+        .file-info i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .file-info:hover i {
+            color: var(--secondary-color);
+        }
+
+        .file-details {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .file-name-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .cancel-file-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            padding: 0.3rem;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            min-width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .cancel-file-btn:hover {
+            background: rgba(231, 76, 60, 0.1);
+            color: #c0392b;
+            transform: scale(1.1);
+        }
+
+        .cancel-file-btn:active {
+            transform: scale(0.95);
+        }
+
+        .cancel-file-btn i {
+            font-size: 0.9rem;
+        }
+
+        .file-size {
+            font-size: 1rem;
+            color: var(--text-muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .convert-btn {
+            background: #e74c3c;
+            color: white;
+            border: 2px solid #e74c3c;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(231, 76, 60, 0.2);
+            position: relative;
+            margin-top: 1.5rem;
+            width: auto;
+            min-width: 180px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            z-index: 15;
+        }
+
+        .convert-btn:hover {
+            background: #c0392b;
+            border-color: #c0392b;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+        }
+
+        .convert-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        .convert-icon path {
+            fill: currentColor;
+        }
+
+        .convert-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            box-shadow: none;
+            background: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        .convert-btn:disabled:hover {
+            background: #e74c3c;
+            color: white;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .title-header {
+            padding: 1rem 0;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .title-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.8rem;
+            position: relative;
+            line-height: 1.2;
+        }
+
+        .title-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .title-badges {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .title-badges .badge {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .badge.bg-primary {
+            background: #3498db !important;
+        }
+
+        .badge.bg-success {
+            background: #2ecc71 !important;
+        }
+
+        .badge.bg-info {
+            background: #3498db !important;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #e74c3c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .copyright-section {
+            position: relative;
+            width: 100%;
+            background: linear-gradient(135deg, #4a90e2, #2c3e50) !important;
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: auto;
+            overflow: hidden;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        .wave-container {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23f8f9fa' fill-opacity='1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: 50% 100%;
+            animation: wave 10s linear infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .wave:nth-child(2) {
+            top: 0;
+            opacity: 0.5;
+            animation: wave 15s linear infinite reverse;
+            filter: blur(1px);
+        }
+
+        .wave:nth-child(3) {
+            top: 0;
+            opacity: 0.2;
+            animation: wave 20s linear infinite;
+            filter: blur(2px);
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .copyright-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .copyright-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .copyright-title svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .copyright-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .copyright-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .copyright-link {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copyright-link:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        .copyright-link svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        @media (max-width: 768px) {
+            .file-select-box {
+                padding: 1.5rem;
+                min-height: 350px;
+                max-width: 100%;
+            }
+
+            .file-select-box i {
+                font-size: 2.5rem;
+            }
+
+            .file-type-info, .file-preview {
+                padding: 1rem;
+            }
+
+            .convert-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            /* Mobile menu improvements */
+            .sidebar {
+                width: 100% !important;
+                left: -100% !important;
+            }
+
+            .sidebar.open {
+                left: 0 !important;
+            }
+
+            .menu-toggle {
+                width: 36px;
+                height: 36px;
+                padding: 0.4rem;
+            }
+
+            .menu-toggle .hamburger-line {
+                width: 18px;
+                height: 2px;
+            }
+
+            .header {
+                height: 60px;
+                padding: 0.6rem 1rem;
+            }
+
+            .header-content {
+                padding: 0 0.5rem;
+            }
+
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .logo-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .file-select-container {
+                margin-top: 60px;
+                padding: 1rem;
+            }
+
+            .title-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .title-header p {
+                font-size: 0.9rem;
+            }
+
+            .title-badges {
+                gap: 0.5rem;
+            }
+
+            .title-badges .badge {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                height: 56px;
+                padding: 0.5rem 0.8rem;
+            }
+
+            .file-select-container {
+                margin-top: 56px;
+                padding: 0.8rem;
+            }
+
+            .file-select-box {
+                padding: 1rem;
+                min-height: 300px;
+            }
+
+            .upload-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .file-select-box h2 {
+                font-size: 1.4rem;
+            }
+
+            .file-select-box p {
+                font-size: 1rem;
+            }
+
+            .select-file-btn {
+                padding: 0.8rem 1.2rem;
+                font-size: 1rem;
+            }
+
+            .convert-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .file-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Ensure proper stacking context */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 0.8rem 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+            width: 100%;
+            padding: 0 1rem;
+        }
+
+        .file-icon {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        .file-icon.pdf-icon {
+            width: 64px;
+            height: 64px;
+            background-image: url('/static/images/pdf-icon.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-size: 0; /* Hide the Font Awesome icon */
+            margin: 0 auto 1rem;
+        }
+
+        .file-icon.word-icon {
+            width: 64px;
+            height: 64px;
+            background-image: url('/static/images/word-icon.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-size: 0; /* Hide the Font Awesome icon */
+            margin: 0 auto 1rem;
+        }
+
+        .file-icon.generic-icon {
+            font-size: 3rem;
+            color: #3498db;
+        }
+
+        /* Additional dark mode fixes */
+        [data-bs-theme="dark"] html {
+            background: #121212 !important;
+        }
+
+        [data-bs-theme="dark"] body {
+            background: #121212 !important;
+        }
+
+        [data-bs-theme="dark"] .file-select-container {
+            background: transparent;
+        }
+
+        /* Ensure all elements respect dark theme */
+        [data-bs-theme="dark"] * {
+            background-color: transparent;
+        }
+
+        [data-bs-theme="dark"] .file-select-box {
+            background: #1e1e1e !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        [data-bs-theme="dark"] .file-select-box:hover {
+            border-color: #64b5f6 !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        [data-bs-theme="dark"] .error-message {
+            background: #2d1b1b !important;
+            border: 1px solid #5c2c2c !important;
+            color: #f8d7da !important;
+        }
+
+        [data-bs-theme="dark"] .file-preview {
+            background: #1e1e1e !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+        }
+
+        /* Dark mode button styles */
+        [data-bs-theme="dark"] .back-btn {
+            background: #1a237e !important;
+            border-color: #1a237e !important;
+            color: white !important;
+        }
+
+        [data-bs-theme="dark"] .back-btn:hover {
+            background: #0d47a1 !important;
+            border-color: #0d47a1 !important;
+            color: white !important;
+        }
+
+        [data-bs-theme="dark"] .select-file-btn {
+            background: #64b5f6 !important;
+            border-color: #64b5f6 !important;
+            color: white !important;
+        }
+
+        [data-bs-theme="dark"] .select-file-btn:hover {
+            background: #1a237e !important;
+            border-color: #1a237e !important;
+            color: white !important;
+        }
+
+        [data-bs-theme="dark"] .convert-btn {
+            background: #e74c3c !important;
+            border-color: #e74c3c !important;
+            color: white !important;
+        }
+
+        [data-bs-theme="dark"] .convert-btn:hover {
+            background: #c0392b !important;
+            border-color: #c0392b !important;
+            color: white !important;
+        }
+
+        [data-bs-theme="dark"] .cancel-file-btn {
+            color: #ff6b6b !important;
+        }
+
+        [data-bs-theme="dark"] .cancel-file-btn:hover {
+            background: rgba(255, 107, 107, 0.2) !important;
+            color: #ff5252 !important;
+        }
+
+        /* Dark mode file type info */
+        [data-bs-theme="dark"] .file-type-info {
+            background: rgba(100, 181, 246, 0.1) !important;
+            border: 1px solid rgba(100, 181, 246, 0.2) !important;
+        }
+
+        [data-bs-theme="dark"] .file-type-info p {
+            color: #e0e0e0 !important;
+        }
+
+        [data-bs-theme="dark"] .file-type-info i {
+            color: #64b5f6 !important;
+        }
+
+        /* Dark mode file info */
+        [data-bs-theme="dark"] .file-info {
+            background: rgba(100, 181, 246, 0.05) !important;
+            border: 1px solid rgba(100, 181, 246, 0.1) !important;
+        }
+
+        [data-bs-theme="dark"] .file-info:hover {
+            background: rgba(100, 181, 246, 0.1) !important;
+        }
+
+        [data-bs-theme="dark"] .file-info i {
+            color: #64b5f6 !important;
+        }
+
+        [data-bs-theme="dark"] .file-info:hover i {
+            color: #1a237e !important;
+        }
+
+        /* Dark mode title header */
+        [data-bs-theme="dark"] .title-header h1 {
+            color: #e0e0e0 !important;
+        }
+
+        [data-bs-theme="dark"] .title-header p {
+            color: #a0a0a0 !important;
+        }
+
+        /* Dark mode badges */
+        [data-bs-theme="dark"] .badge.bg-primary {
+            background: #64b5f6 !important;
+        }
+
+        [data-bs-theme="dark"] .badge.bg-success {
+            background: #4caf50 !important;
+        }
+
+        [data-bs-theme="dark"] .badge.bg-info {
+            background: #64b5f6 !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 18H17V16H7V18Z" fill="white"/>
+                    <path d="M17 14H7V12H17V14Z" fill="white"/>
+                    <path d="M7 10H11V8H7V10Z" fill="white"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6 2C4.34315 2 3 3.34315 3 5V19C3 20.6569 4.34315 22 6 22H18C19.6569 22 21 20.6569 21 19V9C21 5.13401 17.866 2 14 2H6ZM6 4H13V9H19V19C19 19.5523 18.5523 20 18 20H6C5.44772 20 5 19.5523 5 19V5C5 4.44772 5.44772 4 6 4ZM15 4.10002C16.6113 4.4271 17.9413 5.52906 18.584 7H15V4.10002Z" fill="white"/>
+                </svg>
+                <h1 class="logo-text">PDF Converter</h1>
+            </a>
+            
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="theme-icon" id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- Sun icon for light theme -->
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="file-select-container">
+        <a href="/" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+
+        <div class="title-header">
+            <h1>Select Your File</h1>
+            <p>Choose a file to convert to your desired format</p>
+            <div class="title-badges">
+                <span class="badge bg-primary">Free</span>
+                <span class="badge bg-success">Secure</span>
+                <span class="badge bg-info">Fast</span>
+            </div>
+        </div>
+        
+        <div class="file-select-box">
+            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4V16M12 4L8 8M12 4L16 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 12V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h2>Convert PDF to Word</h2>
+            <p>Select a PDF file to convert to Word format</p>
+            <input type="file" id="fileInput" style="display: none" accept=".pdf">
+            <button class="select-file-btn" onclick="document.getElementById('fileInput').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                Select PDF File
+            </button>
+            <div class="file-type-info">
+                <p id="fileTypeInfo"><i class="fas fa-info-circle"></i>Select a PDF file to convert to Word</p>
+            </div>
+
+            <div id="errorMessage" class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="errorText"></span>
+            </div>
+
+            <div id="filePreview" class="file-preview">
+                <div class="file-info">
+                    <i class="fas fa-file-alt file-icon"></i>
+                    <div class="file-details">
+                        <div class="file-name-container">
+                            <div class="file-name" id="selectedFileName">No file selected</div>
+                            <button class="cancel-file-btn" onclick="clearFile()" title="Remove file">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="file-size" id="selectedFileSize">0 KB</div>
+                    </div>
+                </div>
+                <button class="convert-btn" onclick="startConversion()">
+                    <svg class="convert-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 4V16M12 4L8 8M12 4L16 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 12V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Convert
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="copyright-section">
+        <div class="wave-container">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+        <div class="copyright-content">
+            <div class="copyright-title">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                </svg>
+                Copyright Policy
+            </div>
+            <div class="copyright-text">
+                © 2024 PDF Converter. All rights reserved. This application is designed to help users convert their documents while maintaining the highest standards of privacy and security. We respect intellectual property rights and expect users to do the same.
+            </div>
+            <div class="copyright-links">
+                <a href="#" class="copyright-link">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                    </svg>
+                    Privacy Policy
+                </a>
+                <a href="#" class="copyright-link">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                    </svg>
+                    Terms of Service
+                </a>
+                <a href="#" class="copyright-link">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                    </svg>
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get conversion type from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const conversionType = urlParams.get('type') || 'word'; // Default to PDF to Word conversion
+        
+        // Update file input accept attribute based on conversion type
+        const fileInput = document.getElementById('fileInput');
+        const fileTypeInfo = document.getElementById('fileTypeInfo');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        
+        // Set file input and text based on conversion type
+        function updateConversionType(type) {
+            if (type === 'pdf') {
+                // Word to PDF conversion
+                fileInput.accept = '.docx,.doc';
+                fileTypeInfo.innerHTML = '<i class="fas fa-info-circle"></i>Select a Word file (.docx or .doc) to convert to PDF';
+                document.querySelector('.file-select-box h2').textContent = 'Convert Word to PDF';
+                document.querySelector('.file-select-box p').textContent = 'Select a Word file to convert to PDF format';
+                document.querySelector('.select-file-btn').innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Select Word File';
+            } else {
+                // PDF to Word conversion
+                fileInput.accept = '.pdf';
+                fileTypeInfo.innerHTML = '<i class="fas fa-info-circle"></i>Select a PDF file to convert to Word';
+                document.querySelector('.file-select-box h2').textContent = 'Convert PDF to Word';
+                document.querySelector('.file-select-box p').textContent = 'Select a PDF file to convert to Word format';
+                document.querySelector('.select-file-btn').innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Select PDF File';
+            }
+        }
+
+        // Initialize with the correct conversion type
+        updateConversionType(conversionType);
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.add('show');
+            setTimeout(() => {
+                errorMessage.classList.remove('show');
+            }, 5000); // Hide error after 5 seconds
+        }
+
+        function validateFile(file) {
+            const fileName = file.name.toLowerCase();
+            
+            if (conversionType === 'pdf') {
+                // For Word to PDF conversion
+                if (!fileName.endsWith('.docx') && !fileName.endsWith('.doc')) {
+                    showError('Please select a Word file (.docx or .doc) to convert to PDF');
+                    return false;
+                }
+            } else {
+                // For PDF to Word conversion
+                if (!fileName.endsWith('.pdf')) {
+                    showError('Please select a PDF file to convert to Word');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                
+                // Clear any existing error message
+                errorMessage.classList.remove('show');
+                
+                if (!validateFile(file)) {
+                    this.value = ''; // Clear the file input
+                    return;
+                }
+
+                const filePreview = document.getElementById('filePreview');
+                const fileName = document.getElementById('selectedFileName');
+                const fileSize = document.getElementById('selectedFileSize');
+                const fileIcon = document.querySelector('.file-icon');
+                
+                // Set appropriate file icon
+                if (conversionType === 'pdf') {
+                    fileIcon.className = 'file-icon word-icon';
+                } else {
+                    fileIcon.className = 'file-icon pdf-icon';
+                }
+                
+                // Update file name and show cancel button
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                filePreview.classList.add('show');
+                
+                // Show the cancel button
+                const cancelBtn = document.querySelector('.cancel-file-btn');
+                if (cancelBtn) {
+                    cancelBtn.style.display = 'flex';
+                }
+            }
+        });
+
+        async function startConversion() {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) {
+                showError(conversionType === 'pdf' ? 
+                    'Please select a Word file to convert' : 
+                    'Please select a PDF file to convert');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            
+            // Clear any existing error message
+            errorMessage.classList.remove('show');
+            
+            if (!validateFile(file)) {
+                fileInput.value = ''; // Clear the file input
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('type', conversionType);
+            
+            try {
+                showLoading();
+                const response = await fetch('/convert', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.redirected) {
+                    // Handle redirect to download page
+                    window.location.href = response.url;
+                } else if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Conversion failed. Please try again.');
+                } else {
+                    // Handle JSON response (fallback)
+                    const data = await response.json();
+                    if (data.success) {
+                        window.location.href = `/download?success=true&message=${encodeURIComponent(data.message)}&files=${encodeURIComponent(JSON.stringify(data.files))}`;
+                    } else {
+                        throw new Error(data.error || 'Conversion failed. Please try again.');
+                    }
+                }
+            } catch (error) {
+                showError(error.message);
+                fileInput.value = ''; // Clear the file input on error
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Logo link enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoLink = document.querySelector('.logo');
+            if (logoLink) {
+                logoLink.addEventListener('click', function(e) {
+                    // Add a brief visual feedback
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            }
+        });
+
+        function clearFile() {
+            const fileInput = document.getElementById('fileInput');
+            const filePreview = document.getElementById('filePreview');
+            const fileName = document.getElementById('selectedFileName');
+            const fileSize = document.getElementById('selectedFileSize');
+            const fileIcon = document.querySelector('.file-icon');
+            const cancelBtn = document.querySelector('.cancel-file-btn');
+            
+            // Reset file input
+            fileInput.value = '';
+            
+            // Reset file preview
+            filePreview.classList.remove('show');
+            
+            // Reset file icon
+            fileIcon.className = 'file-icon';
+            
+            // Reset file name and size
+            fileName.textContent = 'No file selected';
+            fileSize.textContent = '0 KB';
+            
+            // Hide the cancel button
+            if (cancelBtn) {
+                cancelBtn.style.display = 'none';
+            }
+            
+            // Clear any error messages
+            const errorMessage = document.getElementById('errorMessage');
+            if (errorMessage) {
+                errorMessage.classList.remove('show');
+            }
+        }
+
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const html = document.documentElement;
+            
+            // Check for saved theme preference or default to light
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            html.setAttribute('data-bs-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+            
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = html.getAttribute('data-bs-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                html.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+                
+                // Add animation effect
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+            
+            function updateThemeIcon(theme) {
+                if (theme === 'dark') {
+                    // Show moon icon for dark theme
+                    themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+                } else {
+                    // Show sun icon for light theme
+                    themeIcon.innerHTML = `
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    `;
+                }
+            }
+            
+            // Logo link enhancement
+            const logoLink = document.querySelector('.logo');
+            if (logoLink) {
+                logoLink.addEventListener('click', function(e) {
+                    // Add a brief visual feedback
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
