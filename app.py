@@ -118,6 +118,10 @@ def convert_pdf_to_word(input_file, output_file):
 def index():
     return render_template('index.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/select_file')
 def select_file():
     conversion_type = request.args.get('type', 'pdf')
@@ -627,6 +631,10 @@ def list_files():
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
 
 if __name__ == '__main__':
     app.run(debug=True) 

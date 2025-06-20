@@ -712,59 +712,319 @@
 
         /* Option card custom themes */
         .option-card-pdf {
-            background: linear-gradient(135deg, #f8fafc 60%, #e3e6f3 100%);
-            border: 2px solid #4a90e2;
-            box-shadow: 0 4px 16px rgba(74, 144, 226, 0.08);
+            background: linear-gradient(135deg, #fff5f5 60%, #ffeaea 100%);
+            border: 2px solid #e74c3c;
+            box-shadow: 0 4px 16px rgba(231, 76, 60, 0.08);
         }
         .option-card-pdf .option-icon {
             color: #e74c3c;
         }
         .option-card-pdf:hover {
-            background: linear-gradient(135deg, #e3e6f3 60%, #f8fafc 100%);
-            border-color: #e74c3c;
+            background: linear-gradient(135deg, #ffeaea 60%, #fff5f5 100%);
+            border-color: #c0392b;
         }
         .option-card-word {
-            background: linear-gradient(135deg, #f3f8fa 60%, #e2f3e6 100%);
-            border: 2px solid #27ae60;
-            box-shadow: 0 4px 16px rgba(39, 174, 96, 0.08);
+            background: linear-gradient(135deg, #f0f6ff 60%, #e3eafd 100%);
+            border: 2px solid #3498db;
+            box-shadow: 0 4px 16px rgba(52, 152, 219, 0.08);
         }
         .option-card-word .option-icon {
-            color: #27ae60;
+            color: #3498db;
         }
         .option-card-word:hover {
-            background: linear-gradient(135deg, #e2f3e6 60%, #f3f8fa 100%);
+            background: linear-gradient(135deg, #e3eafd 60%, #f0f6ff 100%);
             border-color: #2980b9;
         }
         /* Dark theme for option cards */
         [data-bs-theme="dark"] .option-card-pdf {
-            background: linear-gradient(135deg, #232946 60%, #1a1a2e 100%) !important;
-            border: 2px solid #64b5f6 !important;
-            box-shadow: 0 4px 16px rgba(100, 181, 246, 0.12) !important;
+            background: linear-gradient(135deg, #2d1b1b 60%, #3a2323 100%) !important;
+            border: 2px solid #e57373 !important;
+            box-shadow: 0 4px 16px rgba(231, 115, 115, 0.12) !important;
         }
         [data-bs-theme="dark"] .option-card-pdf .option-icon {
             color: #e57373 !important;
         }
         [data-bs-theme="dark"] .option-card-pdf:hover {
-            background: linear-gradient(135deg, #1a1a2e 60%, #232946 100%) !important;
-            border-color: #e57373 !important;
+            background: linear-gradient(135deg, #3a2323 60%, #2d1b1b 100%) !important;
+            border-color: #c0392b !important;
         }
         [data-bs-theme="dark"] .option-card-word {
-            background: linear-gradient(135deg, #1e2e1e 60%, #233d23 100%) !important;
-            border: 2px solid #81c784 !important;
-            box-shadow: 0 4px 16px rgba(129, 199, 132, 0.12) !important;
+            background: linear-gradient(135deg, #1a233a 60%, #233a4d 100%) !important;
+            border: 2px solid #64b5f6 !important;
+            box-shadow: 0 4px 16px rgba(100, 181, 246, 0.12) !important;
         }
         [data-bs-theme="dark"] .option-card-word .option-icon {
-            color: #81c784 !important;
+            color: #64b5f6 !important;
         }
         [data-bs-theme="dark"] .option-card-word:hover {
-            background: linear-gradient(135deg, #233d23 60%, #1e2e1e 100%) !important;
-            border-color: #64b5f6 !important;
+            background: linear-gradient(135deg, #233a4d 60%, #1a233a 100%) !important;
+            border-color: #2980b9 !important;
+        }
+        /* Sidebar styles */
+        .sidebar-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--card-bg);
+            box-shadow: 2px 0 16px rgba(44,62,80,0.08);
+            z-index: 2000;
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(.77,0,.18,1);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
+        .sidebar-menu.active {
+            transform: translateX(0);
+        }
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 1.5rem 1.2rem 1.2rem;
+            background: var(--header-bg);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 0.5rem;
+            transition: color 0.2s;
+        }
+        .close-sidebar:hover {
+            color: #e74c3c;
+        }
+        .sidebar-links {
+            list-style: none;
+            margin: 0;
+            padding: 2rem 0 0 0;
+            flex: 1;
+        }
+        .sidebar-links li {
+            margin: 0;
+            padding: 0;
+        }
+        .sidebar-links a {
+            display: block;
+            padding: 1rem 2rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-left: 4px solid transparent;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .sidebar-links a:hover, .sidebar-links a:focus {
+            background: var(--card-hover-color);
+            color: var(--primary-color);
+            border-left: 4px solid var(--primary-color);
+        }
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(44,62,80,0.25);
+            z-index: 1500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .sidebar-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .menu-toggle {
+            background: none;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            width: 48px;
+            height: 48px;
+            margin-right: 0.5rem;
+            z-index: 2100;
+        }
+        .hamburger-line {
+            width: 28px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        @media (max-width: 768px) {
+            .sidebar-menu {
+                width: 80vw;
+                min-width: 200px;
+                max-width: 320px;
+            }
+        }
+        [data-bs-theme="dark"] .sidebar-menu {
+            background: #1e1e1e !important;
+            box-shadow: 2px 0 16px rgba(30,30,30,0.18);
+        }
+        [data-bs-theme="dark"] .sidebar-header {
+            background: linear-gradient(135deg, #1a237e, #0d47a1) !important;
+        }
+        [data-bs-theme="dark"] .sidebar-links a {
+            color: #e0e0e0 !important;
+        }
+        [data-bs-theme="dark"] .sidebar-links a:hover, [data-bs-theme="dark"] .sidebar-links a:focus {
+            background: #232946 !important;
+            color: #64b5f6 !important;
+            border-left: 4px solid #64b5f6 !important;
+        }
+        [data-bs-theme="dark"] .sidebar-overlay {
+            background: rgba(30,30,30,0.45);
+        }
+        .sidebar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 2rem 2rem 2rem 2rem;
+            border-top: 1px solid rgba(0,0,0,0.07);
+        }
+        .sidebar-action-btn {
+            display: block;
+            background: linear-gradient(135deg, #4a90e2, #2c3e50);
+            color: white;
+            text-align: center;
+            padding: 0.9rem 0;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            margin-bottom: 0.2rem;
+        }
+        .sidebar-action-btn:hover, .sidebar-action-btn:focus {
+            background: linear-gradient(135deg, #2c3e50, #4a90e2);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(44,62,80,0.15);
+        }
+        [data-bs-theme="dark"] .sidebar-action-btn {
+            background: linear-gradient(135deg, #1a237e, #0d47a1) !important;
+            color: #fff !important;
+        }
+        [data-bs-theme="dark"] .sidebar-action-btn:hover, [data-bs-theme="dark"] .sidebar-action-btn:focus {
+            background: linear-gradient(135deg, #0d47a1, #1a237e) !important;
+            color: #64b5f6 !important;
+        }
+        .glass-modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(30, 30, 30, 0.25);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        .glass-modal.active {
+            display: flex;
+        }
+        .glass-modal-content {
+            background: rgba(255,255,255,0.75);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.18);
+            padding: 2.5rem 2rem 2rem 2rem;
+            max-width: 400px;
+            width: 90vw;
+            color: #222;
+            position: relative;
+            text-align: center;
+            animation: fadeInModal 0.3s;
+        }
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .glass-modal-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.2s;
+            z-index: 10;
+        }
+        .glass-modal-close:hover {
+            color: #e74c3c;
+        }
+        [data-bs-theme="dark"] .glass-modal-content {
+            background: rgba(30,30,30,0.75);
+            color: #f8f9fa;
+            border: 1px solid rgba(100,181,246,0.18);
         }
     </style>
 </head>
 <body>
+    <!-- Sidebar Menu -->
+    <nav id="sidebarMenu" class="sidebar-menu">
+        <div class="sidebar-header">
+            <a href="/" class="sidebar-logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 18H17V16H7V18Z" fill="white"/>
+                    <path d="M17 14H7V12H17V14Z" fill="white"/>
+                    <path d="M7 10H11V8H7V10Z" fill="white"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6 2C4.34315 2 3 3.34315 3 5V19C3 20.6569 4.34315 22 6 22H18C19.6569 22 21 20.6569 21 19V9C21 5.13401 17.866 2 14 2H6ZM6 4H13V9H19V19C19 19.5523 18.5523 20 18 20H6C5.44772 20 5 19.5523 5 19V5C5 4.44772 5.44772 4 6 4ZM15 4.10002C16.6113 4.4271 17.9413 5.52906 18.584 7H15V4.10002Z" fill="white"/>
+                </svg>
+                <span>PDF Converter</span>
+            </a>
+            <button class="close-sidebar" id="closeSidebar" aria-label="Close menu">&times;</button>
+        </div>
+        <ul class="sidebar-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="{{ url_for('select_file', type='pdf') }}">Word to PDF</a></li>
+            <li><a href="{{ url_for('select_file', type='word') }}">PDF to Word</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+        </ul>
+        <div class="sidebar-actions" style="margin-top:auto;padding-bottom:1.5rem;">
+            <a href="{{ url_for('privacy') }}" class="sidebar-action-btn" style="background:linear-gradient(135deg,#e74c3c,#4a90e2);color:#fff;"><i class="fas fa-user-shield" style="margin-right:0.5rem;"></i>Privacy Policy</a>
+        </div>
+    </nav>
+    <!-- Overlay for sidebar -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
     <header class="header">
         <div class="header-content">
+            <!-- Hamburger menu button -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
             <a href="/" class="logo">
                 <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 18H17V16H7V18Z" fill="white"/>
@@ -870,7 +1130,7 @@
                 © 2024 PDF Converter. All rights reserved. This application is designed to help users convert their documents while maintaining the highest standards of privacy and security. We respect intellectual property rights and expect users to do the same.
             </div>
             <div class="copyright-links">
-                <a href="#" class="copyright-link">
+                <a href="{{ url_for('privacy') }}" class="copyright-link">
                     <svg viewBox="0 0 24 24">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
                     </svg>
@@ -889,6 +1149,15 @@
                     Contact Us
                 </a>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal for Privacy Policy -->
+    <div id="privacyModal" class="glass-modal">
+        <div class="glass-modal-content">
+            <button class="glass-modal-close" id="closePrivacy">&times;</button>
+            <h2>Privacy Policy</h2>
+            <p>Your privacy is important to us. We do not store your files. All conversions are processed securely and deleted after completion.</p>
         </div>
     </div>
 
@@ -950,6 +1219,55 @@
                     }, 150);
                 });
             }
+        });
+        // Sidebar menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarMenu = document.getElementById('sidebarMenu');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const menuToggle = document.getElementById('menuToggle');
+            const closeSidebar = document.getElementById('closeSidebar');
+
+            function openSidebar() {
+                sidebarMenu.classList.add('active');
+                sidebarOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeSidebarMenu() {
+                sidebarMenu.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            menuToggle.addEventListener('click', openSidebar);
+            closeSidebar.addEventListener('click', closeSidebarMenu);
+            sidebarOverlay.addEventListener('click', closeSidebarMenu);
+            // Close sidebar on ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeSidebarMenu();
+            });
+        });
+        // Glass modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const privacyModal = document.getElementById('privacyModal');
+            const openPrivacy = document.getElementById('openPrivacy');
+            const closePrivacy = document.getElementById('closePrivacy');
+
+            openPrivacy.addEventListener('click', function(e) {
+                e.preventDefault();
+                privacyModal.classList.add('active');
+            });
+            closePrivacy.addEventListener('click', function() {
+                privacyModal.classList.remove('active');
+            });
+            // Close modal on overlay click
+            privacyModal.addEventListener('click', function(e) {
+                if (e.target === privacyModal) privacyModal.classList.remove('active');
+            });
+            // Close modal on ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    privacyModal.classList.remove('active');
+                }
+            });
         });
     </script>
 </body>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - PDF Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f8f9fa;
+            --card-hover-color: #f1f8ff;
+            --card-bg: white;
+            --text-color: #2c3e50;
+            --text-muted: #666;
+        }
+        [data-bs-theme="dark"] {
+            --primary-color: #64b5f6;
+            --secondary-color: #1a237e;
+            --background-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --card-hover-color: #2d2d2d;
+        }
+        body {
+            font-family: 'Poppins', Arial, Helvetica, sans-serif;
+            background: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 0.8rem 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+            width: 100%;
+            padding: 0 1rem;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+            position: relative;
+            z-index: 10;
+        }
+        .logo:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+        .logo:active {
+            transform: translateY(0);
+        }
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            transition: all 0.3s ease;
+        }
+        .logo:hover .logo-icon {
+            transform: scale(1.05);
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+        .logo:hover .logo-text {
+            color: #f8f9fa;
+        }
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.8rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: white;
+            position: relative;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover svg {
+            transform: rotate(30deg);
+        }
+        [data-bs-theme="dark"] .theme-toggle {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        [data-bs-theme="dark"] .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .about-section {
+            max-width: 700px;
+            margin: 7.5rem auto 2rem auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 3rem 2rem 2rem 2rem;
+            text-align: center;
+        }
+        .studio-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary-color) 30%, var(--accent-color) 100%);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            border-radius: 18px;
+            padding: 0.5rem 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+            text-shadow: 0 1px 4px rgba(44,62,80,0.10);
+        }
+        .about-title, .about-section h2 {
+            text-align: center;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .about-description {
+            font-size: 1.13rem;
+            margin-bottom: 2.1rem;
+            color: var(--text-muted);
+        }
+        .about-team {
+            margin-top: 2.2rem;
+            font-size: 1rem;
+        }
+        .dev-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0 0.7rem 0;
+            flex-wrap: wrap;
+        }
+        .dev-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+            border: 1px solid rgba(0,0,0,0.07);
+            padding: 1.2rem 1.1rem 1.1rem 1.1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 140px;
+            max-width: 180px;
+            margin-bottom: 1rem;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .dev-card:hover {
+            box-shadow: 0 6px 24px rgba(44,62,80,0.13);
+            transform: translateY(-4px) scale(1.03);
+        }
+        .dev-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color) 60%, var(--accent-color) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+            border: 3px solid var(--card-bg);
+            margin-bottom: 0.7rem;
+        }
+        .dev-name {
+            font-weight: 700;
+            font-size: 1.08rem;
+            margin-bottom: 0.2rem;
+            color: var(--text-color);
+        }
+        .dev-role {
+            font-size: 0.97rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .resources-section {
+            margin-top: 2.7rem;
+            text-align: left;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.2rem 1.2rem 1rem 1.2rem;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+            border: 1px solid rgba(0,0,0,0.07);
+        }
+        .resources-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+            color: var(--primary-color);
+        }
+        .resources-list {
+            list-style: disc inside;
+            color: var(--text-muted);
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+        .home-btn {
+            margin-top: 2.5rem;
+            padding: 0.7rem 2.2rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            font-weight: 600;
+            transition: background 0.2s, color 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+        }
+        .home-btn:hover {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: #fff;
+        }
+        @media (max-width: 600px) {
+            .about-section {
+                padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+            }
+            .resources-section {
+                padding: 0.8rem 0.5rem 0.7rem 0.5rem;
+            }
+            .dev-cards {
+                gap: 1rem;
+            }
+            .dev-card {
+                min-width: 120px;
+                max-width: 100%;
+                padding: 1rem 0.5rem 1rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 18H17V16H7V18Z" fill="white"/>
+                    <path d="M17 14H7V12H17V14Z" fill="white"/>
+                    <path d="M7 10H11V8H7V10Z" fill="white"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6 2C4.34315 2 3 3.34315 3 5V19C3 20.6569 4.34315 22 6 22H18C19.6569 22 21 20.6569 21 19V9C21 5.13401 17.866 2 14 2H6ZM6 4H13V9H19V19C19 19.5523 18.5523 20 18 20H6C5.44772 20 5 19.5523 5 19V5C5 4.44772 5.44772 4 6 4ZM15 4.10002C16.6113 4.4271 17.9413 5.52906 18.584 7H15V4.10002Z" fill="white"/>
+                </svg>
+                <h1 class="logo-text">PDF Converter</h1>
+            </a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="theme-icon" id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+    <div class="about-section">
+        <div class="studio-badge">NEXDEX STUDIO</div>
+        <h1 class="about-title"><span>📄</span> About Us</h1>
+        <p class="about-description" style="font-size:1.08rem;">
+            <strong>Welcome to NEXDEX STUDIO's PDF Converter App!</strong><br><br>
+            At <b>NEXDEX STUDIO</b>, we aim to simplify your digital document experience. Our <b>PDF Converter App</b> is designed to help you convert, manage, and share your files with speed and efficiency — all within a clean and user-friendly interface.
+        </p>
+        <h2 style="font-size:1.25rem;font-weight:700;margin-top:2.2rem;margin-bottom:0.7rem;" class="section-heading"><span>🌟</span> Our Mission</h2>
+        <p style="font-size:1.04rem;color:var(--text-muted);margin-bottom:2rem;">
+            To provide a fast, reliable, and secure tool for converting and managing PDF documents, making digital productivity accessible for everyone.
+        </p>
+        <h2 style="font-size:1.18rem;font-weight:700;margin-bottom:0.7rem;" class="section-heading"><span>👥</span> Our Team</h2>
+        <div class="dev-cards">
+            <div class="dev-card">
+                <div class="dev-avatar" title="Pravin Shid">
+                    <!-- CEO Star Medal Icon -->
+                    <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="24" fill="#fff"/>
+                        <polygon points="24,12 27.09,20.26 36,20.27 28.82,25.97 31.91,34.23 24,28.99 16.09,34.23 19.18,25.97 12,20.27 20.91,20.26" fill="#fff"/>
+                        <circle cx="24" cy="24" r="7" fill="none" stroke="#fff" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="dev-name">Pravin Shid</div>
+                <div class="dev-role">Founder & CEO</div>
+            </div>
+            <div class="dev-card">
+                <div class="dev-avatar" title="Dinesh Shid">
+                    <!-- Developer Terminal Icon -->
+                    <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="24" fill="#fff"/>
+                        <rect x="14" y="16" width="20" height="16" rx="3" fill="none" stroke="#fff" stroke-width="2.5"/>
+                        <polyline points="19,22 23,24 19,26" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="26" y="26" width="7" height="2.5" rx="1.25" fill="#fff"/>
+                    </svg>
+                </div>
+                <div class="dev-name">Dinesh Shid</div>
+                <div class="dev-role">Developer</div>
+            </div>
+            <div class="dev-card">
+                <div class="dev-avatar" title="Eknath Shid">
+                    <!-- UI/UX Designer Paint Palette Icon -->
+                    <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="24" fill="#fff"/>
+                        <ellipse cx="24" cy="28" rx="12" ry="8" fill="none" stroke="#fff" stroke-width="2.5"/>
+                        <circle cx="18" cy="28" r="1.5" fill="#fff"/>
+                        <circle cx="24" cy="24" r="1.5" fill="#fff"/>
+                        <circle cx="30" cy="28" r="1.5" fill="#fff"/>
+                        <circle cx="24" cy="32" r="1.5" fill="#fff"/>
+                    </svg>
+                </div>
+                <div class="dev-name">Eknath Shid</div>
+                <div class="dev-role">UI/UX Designer</div>
+            </div>
+        </div>
+        <h2 style="font-size:1.15rem;font-weight:700;margin-top:2.2rem;margin-bottom:0.7rem;" class="section-heading"><span>📧</span> Contact Us</h2>
+        <p style="font-size:1.04rem;color:var(--text-muted);margin-bottom:0.5rem;">
+            Have feedback, questions, or suggestions? We'd love to hear from you!<br>
+            <b>Email:</b> <a href="mailto:nexdexstudio@gmail.com" style="color:var(--primary-color);text-decoration:underline;">nexdexstudio@gmail.com</a>
+        </p>
+        <div class="social-links" style="margin:1.2rem 0 1.5rem 0;display:flex;justify-content:center;gap:1.2rem;align-items:center;">
+            <a href="https://www.youtube.com/@nexdexstudio" target="_blank" aria-label="YouTube" class="social-icon" style="color:#FF0000;"><i class="fab fa-youtube fa-2x"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61577290571561" target="_blank" aria-label="Facebook" class="social-icon" style="color:#1877f3;"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="https://www.instagram.com/nexdexstudio" target="_blank" aria-label="Instagram" class="social-icon" style="color:#E4405F;"><i class="fab fa-instagram fa-2x"></i></a>
+            <a href="https://twitter.com/nexdexstudio" target="_blank" aria-label="Twitter" class="social-icon" style="color:#1da1f2;display:flex;align-items:center;justify-content:center;width:32px;height:32px;">
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:auto;">
+                    <path d="M32 6.076a13.14 13.14 0 0 1-3.769 1.031A6.601 6.601 0 0 0 31.115 4.1a13.195 13.195 0 0 1-4.169 1.594A6.563 6.563 0 0 0 22.155 2c-3.626 0-6.563 2.938-6.563 6.563 0 .514.058 1.016.17 1.496C10.272 9.87 5.457 7.388 2.228 3.797a6.544 6.544 0 0 0-.888 3.3c0 2.277 1.159 4.287 2.924 5.463A6.573 6.573 0 0 1 1.28 11.1v.083c0 3.18 2.262 5.834 5.266 6.437a6.6 6.6 0 0 1-2.892.11c.816 2.548 3.184 4.402 5.987 4.452A13.18 13.18 0 0 1 0 27.026 18.616 18.616 0 0 0 10.063 30c12.072 0 18.678-10.003 18.678-18.678 0-.285-.007-.568-.02-.85A13.354 13.354 0 0 0 32 6.076z"/>
+                </svg>
+            </a>
+        </div>
+        <a href="{{ url_for('index') }}" class="home-btn"><i class="fas fa-home"></i> Home</a>
+    </div>
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const html = document.documentElement;
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            html.setAttribute('data-bs-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = html.getAttribute('data-bs-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+            function updateThemeIcon(theme) {
+                if (theme === 'dark') {
+                    themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+                } else {
+                    themeIcon.innerHTML = `
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    `;
+                }
+            }
+            const logoLink = document.querySelector('.logo');
+            if (logoLink) {
+                logoLink.addEventListener('click', function(e) {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
