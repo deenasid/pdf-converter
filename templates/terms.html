@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - PDF Converter</title>
+    <title>Terms of Service - PDF Converter</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -113,50 +113,16 @@
         .theme-toggle:hover svg {
             transform: rotate(30deg);
         }
-        @media (max-width: 600px) {
-            .privacy-section {
-                padding: 1.2rem 0.5rem 1.2rem 0.5rem;
-            }
-            .header {
-                height: 60px;
-                padding: 0.6rem 1rem;
-            }
-            .header-content {
-                padding: 0 0.5rem;
-            }
-            .logo-text {
-                font-size: 1rem;
-            }
-        }
-        .privacy-section {
+        .terms-section {
             max-width: 800px;
-            margin: 4.5rem auto 2rem auto;
-            background: #fff;
-            color: #222;
+            margin: 100px auto 2rem auto;
+            background: var(--card-bg, #fff);
             border-radius: 14px;
-            box-shadow: 0 4px 24px rgba(44,62,80,0.13);
+            box-shadow: 0 4px 16px rgba(44,62,80,0.08);
             border: 1px solid rgba(0,0,0,0.07);
             padding: 2.5rem 2rem 2rem 2rem;
-            transition: background 0.3s, color 0.3s;
         }
-        [data-bs-theme="dark"] .privacy-section {
-            background: #1e1e1e !important;
-            color: #fff !important;
-            box-shadow: 0 4px 32px rgba(44,62,80,0.18);
-        }
-        .privacy-app-title {
-            font-size: 2.3rem;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #4a90e2, #2c3e50);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
-            letter-spacing: 1px;
-        }
-        .privacy-title {
+        .terms-title {
             font-size: 2.5rem;
             font-weight: 800;
             text-align: center;
@@ -173,7 +139,7 @@
             text-shadow: 2px 2px 8px rgba(44,62,80,0.10);
             letter-spacing: 1px;
         }
-        .privacy-section h2, .privacy-section h3 {
+        .terms-section h2, .terms-section h3 {
             font-size: 1.18rem;
             font-weight: 600;
             margin-top: 2.2rem;
@@ -184,39 +150,13 @@
             text-align: center;
             justify-content: center;
         }
-        .privacy-section ul, .privacy-section ol {
+        .terms-section ul, .terms-section ol {
             margin-bottom: 1.2rem;
         }
-        .privacy-section li {
+        .terms-section li {
             margin-bottom: 0.4rem;
         }
-        .privacy-section .team-list {
-            list-style: none;
-            padding: 0;
-            margin: 0.5rem 0 1.2rem 0;
-            text-align: center;
-        }
-        .privacy-section .team-list li {
-            font-weight: 500;
-            margin-bottom: 0.2rem;
-        }
-        .privacy-section .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.2rem;
-            margin: 1.2rem 0 0.5rem 0;
-            align-items: center;
-        }
-        .privacy-section .social-icon {
-            color: #222;
-            transition: color 0.2s;
-        }
-        .privacy-section .social-icon[aria-label="YouTube"] { color: #FF0000; }
-        .privacy-section .social-icon[aria-label="Facebook"] { color: #1877f3; }
-        .privacy-section .social-icon[aria-label="Instagram"] { color: #E4405F; }
-        .privacy-section .social-icon[aria-label="Twitter"] { color: #1da1f2; }
-        .privacy-section .social-icon:hover { opacity: 0.8; }
-        .privacy-section .back-btn {
+        .terms-section .back-btn {
             margin-top: 2.2rem;
             padding: 0.7rem 2.2rem;
             font-size: 1.1rem;
@@ -230,24 +170,50 @@
             display: inline-block;
             box-shadow: 0 2px 8px rgba(44,62,80,0.10);
         }
-        .privacy-section .back-btn:hover {
+        .terms-section .back-btn:hover {
             background: linear-gradient(135deg, #2c3e50, #4a90e2);
             color: #fff;
         }
-        .privacy-bg-container {
+        @media (max-width: 600px) {
+            .terms-section {
+                padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+                margin-top: 80px;
+            }
+            .header {
+                height: 60px;
+                padding: 0.6rem 1rem;
+            }
+            .header-content {
+                padding: 0 0.5rem;
+            }
+            .logo-text {
+                font-size: 1rem;
+            }
+        }
+        .terms-bg-container {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             background: #f8f9fa;
             transition: background 0.3s;
         }
-        [data-bs-theme="dark"] .privacy-bg-container {
+        [data-bs-theme="dark"] .terms-bg-container {
             background: #121212 !important;
+        }
+        .terms-section {
+            background: #fff;
+            color: #222;
+            transition: background 0.3s, color 0.3s;
+        }
+        [data-bs-theme="dark"] .terms-section {
+            background: #1e1e1e !important;
+            color: #fff !important;
+            box-shadow: 0 4px 32px rgba(44,62,80,0.18);
         }
     </style>
 </head>
 <body>
-    <div class="privacy-bg-container">
+    <div class="terms-bg-container">
     <header class="header">
         <div class="header-content">
             <a href="/" class="logo">
@@ -314,66 +280,44 @@
         });
     </script>
     <div style="flex:1;display:flex;align-items:flex-start;justify-content:center;width:100%;padding-top:90px;padding-bottom:2rem;">
-        <div class="privacy-section">
-            <div class="privacy-title"><span>🔒</span> Privacy Policy</div>
+        <div class="terms-section">
+            <div class="terms-title"><span>📄</span> Terms of Service</div>
             <div style="text-align:center;font-size:1.05rem;margin-bottom:1.2rem;">
-                <b> June 20, 2025<br>
+                </b> June 20, 2025<br>
                 <b>App Name:</b> PDF Converter<br>
                 <b>STUDIO:</b> NEXDEX STUDIO<br>
                 <b>Email:</b> <a href="mailto:nexdexstudio@gmail.com" style="color:#4a90e2;text-decoration:underline;">nexdexstudio@gmail.com</a>
             </div>
             <hr>
             <h2><span>📖</span> Introduction</h2>
-            <p>Welcome to <b>NEXDEX STUDIO's PDF Converter App</b>. We are committed to protecting your personal data and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our app.</p>
+            <p>Welcome to <b>NEXDEX STUDIO's PDF Converter App</b>. By using this application, you agree to these Terms of Service. Please read them carefully before using the app.</p>
             <hr>
-            <h2><span>📋</span> Information We Collect</h2>
-            <p>We do <b>not collect</b> any personal data from users unless explicitly provided for feedback or contact purposes.</p>
-            <p>However, we may collect limited information such as:</p>
+            <h2><span>👤</span> User Responsibilities</h2>
             <ul>
-                <li>Device type and model</li>
-                <li>Operating system version</li>
-                <li>Usage statistics (e.g., file conversion counts)</li>
+                <li>You must use the app in compliance with all applicable laws and regulations.</li>
+                <li>You are responsible for the content you upload and convert using this app.</li>
+                <li>Do not upload or convert files that you do not have the legal right to use.</li>
             </ul>
-            <p>We <b>do not</b> collect or store the content of your documents.</p>
             <hr>
-            <h2><span>⚙️</span> How We Use Your Information</h2>
-            <p>Any collected data is used strictly for:</p>
+            <h2><span>🚫</span> Prohibited Uses</h2>
             <ul>
-                <li>Improving app performance</li>
-                <li>Debugging and fixing issues</li>
-                <li>Enhancing user experience</li>
+                <li>Do not use the app for any unlawful, harmful, or fraudulent activities.</li>
+                <li>Do not attempt to disrupt or compromise the security or integrity of the app.</li>
+                <li>Do not use the app to distribute malware, spam, or other malicious content.</li>
             </ul>
-            <p>We never sell, rent, or share your personal information with third parties for marketing.</p>
             <hr>
-            <h2><span>🔐</span> Data Security</h2>
-            <p>We use industry-standard security measures to ensure that your information is protected. All conversions are processed locally or over secure encrypted channels.</p>
+            <h2><span>💡</span> Intellectual Property</h2>
+            <p>All content, trademarks, and intellectual property related to the PDF Converter app are owned by NEXDEX STUDIO. You may not copy, modify, or distribute any part of the app without permission.</p>
             <hr>
-            <h2><span>🔗</span> Third-Party Services</h2>
-            <p>We may use third-party services for analytics and error reporting (e.g., Google Analytics for Firebase). These services are governed by their own privacy policies.</p>
+            <h2><span>⚠️</span> Limitation of Liability</h2>
+            <p>The app is provided "as is" without warranties of any kind. NEXDEX STUDIO is not liable for any damages or losses resulting from your use of the app.</p>
             <hr>
-            <h2><span>👶</span> Children's Privacy</h2>
-            <p>This app is not intended for use by individuals under the age of 13. We do not knowingly collect data from children.</p>
+            <h2><span>🔄</span> Changes to Terms</h2>
+            <p>We may update these Terms of Service from time to time. Continued use of the app after changes means you accept the new terms.</p>
             <hr>
-            <h2><span>🛡️</span> Your Rights</h2>
-            <p>You have the right to:</p>
-            <ul>
-                <li>Request deletion of any personal information shared with us</li>
-                <li>Contact us with questions or concerns about your privacy</li>
-            </ul>
-            <p>To request data deletion or get assistance, email us at <a href="mailto:nexdexstudio@gmail.com" style="color:#4a90e2;text-decoration:underline;">nexdexstudio@gmail.com</a>.</p>
-            <hr>
-            <h2><span>🔄</span> Updates to This Policy</h2>
-            <p>We may update this policy from time to time. You will be notified of any major changes via the app or email.</p>
-            <hr>
-            <h2><span>🔗</span> Follow Us on Social Media</h2>
-            <div class="social-links">
-                <a href="https://techandreviews.com/" target="_blank" aria-label="Website" class="social-icon" style="color:#4a90e2;"><i class="fas fa-globe fa-2x"></i></a>
-                <a href="https://www.facebook.com/profile.php?id=61577290571561" target="_blank" aria-label="Facebook" class="social-icon" style="color:#1877f3;"><i class="fab fa-facebook fa-2x"></i></a>
-                <a href="https://twitter.com/nexdexstudio" target="_blank" aria-label="Twitter" class="social-icon" style="color:#1da1f2;"><i class="fab fa-twitter fa-2x"></i></a>
-                <a href="https://instagram.com/nexdexstudio" target="_blank" aria-label="Instagram" class="social-icon" style="color:#E4405F;"><i class="fab fa-instagram fa-2x"></i></a>
-                <a href="https://youtube.com/@nexdexstudio" target="_blank" aria-label="YouTube" class="social-icon" style="color:#FF0000;"><i class="fab fa-youtube fa-2x"></i></a>
-            </div>
-            <center><a href="{{ url_for('index') }}" class="back-btn"><i class="fas fa-home"></i> Back to Home</a>
+            <h2><span>📬</span> Contact Information</h2>
+            <p>If you have any questions about these Terms, please contact us at <a href="mailto:nexdexstudio@gmail.com" style="color:#4a90e2;text-decoration:underline;">nexdexstudio@gmail.com</a>.</p>
+           <center> <a href="{{ url_for('index') }}" class="back-btn"><i class="fas fa-home"></i> Back to Home</a>
         </div>
     </div>
     </div>

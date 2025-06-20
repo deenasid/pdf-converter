@@ -1004,12 +1004,11 @@
             <button class="close-sidebar" id="closeSidebar" aria-label="Close menu">&times;</button>
         </div>
         <ul class="sidebar-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="{{ url_for('select_file', type='pdf') }}">Word to PDF</a></li>
-            <li><a href="{{ url_for('select_file', type='word') }}">PDF to Word</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="/"><i class="fa-solid fa-house" style="margin-right:0.7em;"></i>Home</a></li>
+            <li><a href="{{ url_for('select_file', type='pdf') }}"><i class="fa-solid fa-file-word" style="margin-right:0.7em;"></i>Word to PDF</a></li>
+            <li><a href="{{ url_for('select_file', type='word') }}"><i class="fa-solid fa-file-pdf" style="margin-right:0.7em;"></i>PDF to Word</a></li>
+            <li><a href="{{ url_for('about') }}"><i class="fa-solid fa-circle-info" style="margin-right:0.7em;"></i>About</a></li>
+            <li><a href="{{ url_for('contact') }}"><i class="fa-solid fa-envelope" style="margin-right:0.7em;"></i>Contact</a></li>
         </ul>
         <div class="sidebar-actions" style="margin-top:auto;padding-bottom:1.5rem;">
             <a href="{{ url_for('privacy') }}" class="sidebar-action-btn" style="background:linear-gradient(135deg,#e74c3c,#4a90e2);color:#fff;"><i class="fas fa-user-shield" style="margin-right:0.5rem;"></i>Privacy Policy</a>
@@ -1062,27 +1061,17 @@
     <section class="conversion-options">
         <div class="row g-4">
             <div class="col-md-6">
-                <a href="{{ url_for('select_file', type='pdf') }}" class="option-card option-card-pdf">
-                    <svg class="option-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 18H17V16H7V18Z" fill="currentColor"/>
-                        <path d="M17 14H7V12H17V14Z" fill="currentColor"/>
-                        <path d="M7 10H11V8H7V10Z" fill="currentColor"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6 2C4.34315 2 3 3.34315 3 5V19C3 20.6569 4.34315 22 6 22H18C19.6569 22 21 20.6569 21 19V9C21 5.13401 17.866 2 14 2H6ZM6 4H13V9H19V19C19 19.5523 18.5523 20 18 20H6C5.44772 20 5 19.5523 5 19V5C5 4.44772 5.44772 4 6 4ZM15 4.10002C16.6113 4.4271 17.9413 5.52906 18.584 7H15V4.10002Z" fill="currentColor"/>
-                    </svg>
-                    <h2 class="option-title">Word to PDF</h2>
-                    <p class="option-description">Convert your Word documents to PDF format while preserving formatting and layout.</p>
+                <a href="{{ url_for('select_file', type='word') }}" class="option-card option-card-word">
+                    <i class="fa-solid fa-file-word option-icon" style="font-size:3.5rem;margin-bottom:1.2rem;color:#3498db;"></i>
+                    <h2 class="option-title">PDF to Word</h2>
+                    <p class="option-description">Transform your PDF files into editable Word documents with accurate text recognition.</p>
                 </a>
             </div>
             <div class="col-md-6">
-                <a href="{{ url_for('select_file', type='word') }}" class="option-card option-card-word">
-                    <svg class="option-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 18H17V16H7V18Z" fill="currentColor"/>
-                        <path d="M17 14H7V12H17V14Z" fill="currentColor"/>
-                        <path d="M7 10H11V8H7V10Z" fill="currentColor"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6 2C4.34315 2 3 3.34315 3 5V19C3 20.6569 4.34315 22 6 22H18C19.6569 22 21 20.6569 21 19V9C21 5.13401 17.866 2 14 2H6ZM6 4H13V9H19V19C19 19.5523 18.5523 20 18 20H6C5.44772 20 5 19.5523 5 19V5C5 4.44772 5.44772 4 6 4ZM15 4.10002C16.6113 4.4271 17.9413 5.52906 18.584 7H15V4.10002Z" fill="currentColor"/>
-                    </svg>
-                    <h2 class="option-title">PDF to Word</h2>
-                    <p class="option-description">Transform your PDF files into editable Word documents with accurate text recognition.</p>
+                <a href="{{ url_for('select_file', type='pdf') }}" class="option-card option-card-pdf">
+                    <i class="fa-solid fa-file-pdf option-icon" style="font-size:3.5rem;margin-bottom:1.2rem;color:#e74c3c;"></i>
+                    <h2 class="option-title">Word to PDF</h2>
+                    <p class="option-description">Convert your Word documents to PDF format while preserving formatting and layout.</p>
                 </a>
             </div>
         </div>
@@ -1136,13 +1125,13 @@
                     </svg>
                     Privacy Policy
                 </a>
-                <a href="#" class="copyright-link">
+                <a href="{{ url_for('terms') }}" class="copyright-link">
                     <svg viewBox="0 0 24 24">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
                     </svg>
                     Terms of Service
                 </a>
-                <a href="#" class="copyright-link">
+                <a href="{{ url_for('contact') }}" class="copyright-link">
                     <svg viewBox="0 0 24 24">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
                     </svg>

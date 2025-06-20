@@ -77,186 +77,6 @@
             background: #0d47a1 !important;
         }
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 0;
-            margin: 0;
-            background: var(--background-color);
-            color: var(--text-color);
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* Ensure header and copyright sections always have proper blue colors in light theme */
-        .header {
-            padding: 0.8rem 1rem;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            height: 70px;
-            display: flex;
-            align-items: center;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.8rem;
-            animation: fadeInDown 1s ease-out;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            text-decoration: none;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 0.5rem;
-            border-radius: 8px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .logo:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-1px);
-        }
-
-        .logo:active {
-            transform: translateY(0);
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            transition: all 0.3s ease;
-        }
-
-        .logo:hover .logo-icon {
-            transform: scale(1.05);
-        }
-
-        .logo-text {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 0;
-            transition: all 0.3s ease;
-        }
-
-        .logo:hover .logo-text {
-            color: #f8f9fa;
-        }
-
-        /* Theme toggle styles */
-        .theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.8rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            color: white;
-            position: relative;
-            width: 48px;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-        }
-
-        .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
-        }
-
-        .theme-toggle:active {
-            transform: scale(0.95);
-        }
-
-        .theme-toggle svg {
-            width: 24px;
-            height: 24px;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover svg {
-            transform: rotate(30deg);
-        }
-
-        [data-bs-theme="dark"] .theme-toggle {
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        [data-bs-theme="dark"] .theme-toggle:hover {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        [data-bs-theme="dark"] {
-            --primary-color: #5a9fe2;
-            --secondary-color: #1a2a3a;
-            --background-color: #1a1a1a;
-            --card-bg: #2d2d2d;
-            --text-color: #ffffff;
-            --text-muted: #a0a0a0;
-        }
-
-        [data-bs-theme="dark"] body {
-            background: var(--background-color);
-            color: var(--text-color);
-        }
-
-        [data-bs-theme="dark"] .file-select-box {
-            background: #1e1e1e;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        [data-bs-theme="dark"] .file-select-box:hover {
-            border-color: #64b5f6;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-        }
-
-        [data-bs-theme="dark"] .sidebar {
-            background: linear-gradient(135deg, #1a237e, #0d47a1);
-        }
-
-        [data-bs-theme="dark"] .sidebar-header {
-            background: linear-gradient(135deg, #0d47a1, #1a237e);
-        }
-
-        [data-bs-theme="dark"] .sidebar-footer {
-            background: #0d47a1;
-        }
-
         [data-bs-theme="dark"] .nav-link:hover {
             background: rgba(100, 181, 246, 0.2);
             border-left-color: #64b5f6;
@@ -549,6 +369,11 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        .file-size-warning {
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
         }
 
         .convert-btn {
@@ -1125,6 +950,149 @@
         [data-bs-theme="dark"] .badge.bg-info {
             background: #64b5f6 !important;
         }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            margin: 0;
+            background: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Ensure header and copyright sections always have proper blue colors in light theme */
+        .header {
+            padding: 0.8rem 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .logo:active {
+            transform: translateY(0);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover .logo-text {
+            color: #f8f9fa;
+        }
+
+        /* Theme toggle styles */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.8rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: white;
+            position: relative;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(30deg);
+        }
+
+        [data-bs-theme="dark"] .theme-toggle {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        [data-bs-theme="dark"] .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -1204,6 +1172,7 @@
                             </button>
                         </div>
                         <div class="file-size" id="selectedFileSize">0 KB</div>
+                        <div class="file-size-warning" id="fileSizeWarning" style="display: none; font-size: 0.85rem; margin-top: 0.3rem;"></div>
                     </div>
                 </div>
                 <button class="convert-btn" onclick="startConversion()">
@@ -1320,6 +1289,19 @@
         function validateFile(file) {
             const fileName = file.name.toLowerCase();
             
+            // Check file size (100MB limit)
+            const maxSize = 100 * 1024 * 1024; // 100MB in bytes
+            if (file.size > maxSize) {
+                showError('File size exceeds 100MB limit. Please use a smaller file.');
+                return false;
+            }
+            
+            // Check if file is empty
+            if (file.size === 0) {
+                showError('Please select a non-empty file.');
+                return false;
+            }
+            
             if (conversionType === 'pdf') {
                 // For Word to PDF conversion
                 if (!fileName.endsWith('.docx') && !fileName.endsWith('.doc')) {
@@ -1363,6 +1345,23 @@
                 // Update file name and show cancel button
                 fileName.textContent = file.name;
                 fileSize.textContent = formatFileSize(file.size);
+                
+                // Show file size warning for large files
+                const fileSizeWarning = document.getElementById('fileSizeWarning');
+                if (fileSizeWarning) {
+                    if (file.size > 50 * 1024 * 1024) { // 50MB
+                        fileSizeWarning.textContent = '⚠️ Large file detected. Conversion may take several minutes.';
+                        fileSizeWarning.style.display = 'block';
+                        fileSizeWarning.style.color = '#f39c12';
+                    } else if (file.size > 10 * 1024 * 1024) { // 10MB
+                        fileSizeWarning.textContent = '📁 Medium file size. Please be patient during conversion.';
+                        fileSizeWarning.style.display = 'block';
+                        fileSizeWarning.style.color = '#3498db';
+                    } else {
+                        fileSizeWarning.style.display = 'none';
+                    }
+                }
+                
                 filePreview.classList.add('show');
                 
                 // Show the cancel button
@@ -1398,10 +1397,63 @@
             
             try {
                 showLoading();
-                const response = await fetch('/convert', {
-                    method: 'POST',
-                    body: formData
-                });
+                
+                // Show progress for files > 5MB
+                let showProgress = file.size > 5 * 1024 * 1024; // 5MB
+                let progressBar = null;
+                
+                if (showProgress) {
+                    progressBar = createProgressBar();
+                }
+                
+                // Add a small delay to show the progress bar
+                if (showProgress) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+                
+                // Use async conversion for very large files (>50MB)
+                let response;
+                if (file.size > 50 * 1024 * 1024) {
+                    // Use async conversion for very large files
+                    response = await fetch('/convert_async', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.success) {
+                            // Poll for conversion status
+                            await pollConversionStatus(data.filename, progressBar);
+                            return;
+                        }
+                    }
+                } else {
+                    // Use regular conversion for smaller files
+                    response = await fetch('/convert', {
+                        method: 'POST',
+                        body: formData
+                    });
+                }
+                
+                // Complete the progress bar if it was shown
+                if (showProgress && progressBar) {
+                    const progressBarElement = progressBar.querySelector('.progress-bar');
+                    const conversionStatus = progressBar.querySelector('#conversion-status');
+                    if (progressBarElement) {
+                        progressBarElement.style.width = '100%';
+                    }
+                    if (conversionStatus) {
+                        conversionStatus.textContent = '✅ Conversion completed!';
+                    }
+                    
+                    // Remove progress bar after a short delay
+                    setTimeout(() => {
+                        if (progressBar && progressBar.parentNode) {
+                            progressBar.remove();
+                        }
+                    }, 1000);
+                }
                 
                 if (response.redirected) {
                     // Handle redirect to download page
@@ -1421,24 +1473,146 @@
             } catch (error) {
                 showError(error.message);
                 fileInput.value = ''; // Clear the file input on error
+                
+                // Remove progress bar on error
+                if (progressBar && progressBar.parentNode) {
+                    progressBar.remove();
+                }
             } finally {
                 hideLoading();
             }
         }
 
-        // Logo link enhancement
-        document.addEventListener('DOMContentLoaded', function() {
-            const logoLink = document.querySelector('.logo');
-            if (logoLink) {
-                logoLink.addEventListener('click', function(e) {
-                    // Add a brief visual feedback
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                });
+        async function pollConversionStatus(filename, progressBar) {
+            const maxAttempts = 60; // 5 minutes with 5-second intervals
+            let attempts = 0;
+            
+            while (attempts < maxAttempts) {
+                try {
+                    const response = await fetch(`/conversion_status/${filename}`);
+                    const status = await response.json();
+                    
+                    if (status.status === 'completed') {
+                        // Conversion completed successfully
+                        if (progressBar) {
+                            const progressBarElement = progressBar.querySelector('.progress-bar');
+                            const conversionStatus = progressBar.querySelector('#conversion-status');
+                            if (progressBarElement) {
+                                progressBarElement.style.width = '100%';
+                            }
+                            if (conversionStatus) {
+                                conversionStatus.textContent = '✅ Conversion completed!';
+                            }
+                            
+                            setTimeout(() => {
+                                if (progressBar && progressBar.parentNode) {
+                                    progressBar.remove();
+                                }
+                            }, 1000);
+                        }
+                        
+                        // Redirect to download page
+                        const outputFilename = filename.replace(/\.(pdf|docx|doc)$/i, conversionType === 'pdf' ? '.pdf' : '.docx');
+                        const files_info = [{'name': outputFilename, 'size': 'Ready for download'}];
+                        window.location.href = `/download?success=true&message=File converted successfully!&files=${encodeURIComponent(JSON.stringify(files_info))}`;
+                        return;
+                        
+                    } else if (status.status === 'error') {
+                        throw new Error('Conversion failed. Please try again.');
+                    }
+                    
+                    // Update progress bar
+                    if (progressBar) {
+                        const progressBarElement = progressBar.querySelector('.progress-bar');
+                        const conversionStatus = progressBar.querySelector('#conversion-status');
+                        if (progressBarElement) {
+                            const progress = Math.min(90, (attempts / maxAttempts) * 90);
+                            progressBarElement.style.width = progress + '%';
+                        }
+                        if (conversionStatus) {
+                            conversionStatus.textContent = '⏳ Converting file... (This may take several minutes)';
+                        }
+                    }
+                    
+                    attempts++;
+                    await new Promise(resolve => setTimeout(resolve, 5000)); // Wait 5 seconds
+                    
+                } catch (error) {
+                    console.error('Error polling conversion status:', error);
+                    attempts++;
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                }
             }
-        });
+            
+            // Timeout reached
+            throw new Error('Conversion timed out. Please try again with a smaller file.');
+        }
+
+        function createProgressBar() {
+            // Create progress bar container
+            const progressContainer = document.createElement('div');
+            progressContainer.className = 'progress-container';
+            progressContainer.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--card-bg);
+                padding: 2rem;
+                border-radius: 12px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                z-index: 9999;
+                min-width: 350px;
+                text-align: center;
+            `;
+            
+            progressContainer.innerHTML = `
+                <h4 style="margin-bottom: 1rem; color: var(--text-color);">Processing Your File...</h4>
+                <div class="progress" style="height: 8px; border-radius: 4px; background: #e9ecef; margin-bottom: 1rem;">
+                    <div class="progress-bar" role="progressbar" style="width: 0%; background: var(--primary-color); transition: width 0.3s ease;"></div>
+                </div>
+                <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Please wait while we convert your file. This may take a few minutes for large files.</p>
+                <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">
+                    <div>✓ File uploaded successfully</div>
+                    <div id="conversion-status">⏳ Converting file...</div>
+                </div>
+            `;
+            
+            document.body.appendChild(progressContainer);
+            
+            // Update progress with more realistic timing
+            const progressBar = progressContainer.querySelector('.progress-bar');
+            const conversionStatus = progressContainer.querySelector('#conversion-status');
+            let progress = 0;
+            let statusStep = 0;
+            
+            const statusMessages = [
+                '⏳ Converting file...',
+                '📄 Processing document structure...',
+                '🔄 Applying formatting...',
+                '💾 Saving converted file...',
+                '✅ Almost done...'
+            ];
+            
+            const interval = setInterval(() => {
+                // Increment progress more slowly for large files
+                progress += Math.random() * 8 + 2; // 2-10% increments
+                if (progress > 95) progress = 95; // Don't go to 100% until actually done
+                
+                progressBar.style.width = progress + '%';
+                
+                // Update status message every 20% progress
+                if (progress > statusStep * 20 && statusStep < statusMessages.length - 1) {
+                    statusStep++;
+                    conversionStatus.textContent = statusMessages[statusStep];
+                }
+            }, 1500); // Update every 1.5 seconds
+            
+            // Store interval for cleanup
+            progressContainer.interval = interval;
+            
+            return progressContainer;
+        }
 
         function clearFile() {
             const fileInput = document.getElementById('fileInput');
@@ -1447,6 +1621,7 @@
             const fileSize = document.getElementById('selectedFileSize');
             const fileIcon = document.querySelector('.file-icon');
             const cancelBtn = document.querySelector('.cancel-file-btn');
+            const fileSizeWarning = document.getElementById('fileSizeWarning');
             
             // Reset file input
             fileInput.value = '';
@@ -1460,6 +1635,11 @@
             // Reset file name and size
             fileName.textContent = 'No file selected';
             fileSize.textContent = '0 KB';
+            
+            // Hide the file size warning
+            if (fileSizeWarning) {
+                fileSizeWarning.style.display = 'none';
+            }
             
             // Hide the cancel button
             if (cancelBtn) {
